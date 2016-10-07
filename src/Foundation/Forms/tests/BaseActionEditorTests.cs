@@ -14,61 +14,61 @@
 
   public class BaseActionEditorTests
   {
-    [Theory]
-    [AutoDbData]
-    public void ParametersXml_EmptyParametersXml_ReturnEmptyParameters(HttpContext context, [Frozen] ISheerService sheerService)
-    {
-      //Arrange
-      var baseActionEditor = new BaseActionEditorMock(sheerService);
-      HttpContext.Current = context;
-      //Assert
-      baseActionEditor.ParametersMock.Should().BeEmpty();
-    }
+    //[Theory]
+    //[AutoDbData]
+    //public void ParametersXml_EmptyParametersXml_ReturnEmptyParameters(HttpContext context, [Frozen] ISheerService sheerService)
+    //{
+    //  //Arrange
+    //  var baseActionEditor = new BaseActionEditorMock(sheerService);
+    //  HttpContext.Current = context;
+    //  //Assert
+    //  baseActionEditor.ParametersMock.Should().BeEmpty();
+    //}
 
-    [Theory]
-    [AutoDbData]
-    public void ParametersXml_ParametersXmlIsSet_ReturnParameters([Frozen] ISheerService sheerService)
-    {
-      //Arrange
-      var parametersXml = @"<outcome>{9016E456-95CB-42E9-AD58-997D6D77AE83}</outcome>";
-      var baseActionEditor = new BaseActionEditorMock(sheerService);
+    //[Theory]
+    //[AutoDbData]
+    //public void ParametersXml_ParametersXmlIsSet_ReturnParameters([Frozen] ISheerService sheerService)
+    //{
+    //  //Arrange
+    //  var parametersXml = @"<outcome>{9016E456-95CB-42E9-AD58-997D6D77AE83}</outcome>";
+    //  var baseActionEditor = new BaseActionEditorMock(sheerService);
 
-      HttpContext.Current = HttpContextMockFactory.Create(new HttpRequest("", "http://google.com", "params=1"));
-      HttpContext.Current.Session["1"] = parametersXml;
+    //  HttpContext.Current = HttpContextMockFactory.Create(new HttpRequest("", "http://google.com", "params=1"));
+    //  HttpContext.Current.Session["1"] = parametersXml;
 
-      //Assert
-      var p = baseActionEditor.ParametersMock["outcome"].Should().Be("{9016E456-95CB-42E9-AD58-997D6D77AE83}");
-    }
+    //  //Assert
+    //  var p = baseActionEditor.ParametersMock["outcome"].Should().Be("{9016E456-95CB-42E9-AD58-997D6D77AE83}");
+    //}
 
-    [Theory]
-    [AutoDbData]
-    public void OnOk_EmptyParameters_ReturnDashRsult(HttpContext context, [Frozen] ISheerService sheerService)
-    {
-      //Arrange
-      var baseActionEditor = new BaseActionEditorMock(sheerService);
-      HttpContext.Current = context;
-      //Act
-      baseActionEditor.OnOkMock(this, new EventArgs());
+    //[Theory]
+    //[AutoDbData]
+    //public void OnOk_EmptyParameters_ReturnDashRsult(HttpContext context, [Frozen] ISheerService sheerService)
+    //{
+    //  //Arrange
+    //  var baseActionEditor = new BaseActionEditorMock(sheerService);
+    //  HttpContext.Current = context;
+    //  //Act
+    //  baseActionEditor.OnOkMock(this, new EventArgs());
 
-      //Assert
-      sheerService.Received().SetDialogValue("-");
-    }
+    //  //Assert
+    //  sheerService.Received().SetDialogValue("-");
+    //}
 
-    [Theory]
-    [AutoDbData]
-    public void OnOk_ParametersAreSet_ReturnParametersXml(HttpContext context, [Frozen] ISheerService sheerService)
-    {
-      //Arrange
-      var baseActionEditor = new BaseActionEditorMock(sheerService);
-      HttpContext.Current = context;
-      baseActionEditor.ParametersMock.Add("outcome", "{00889a5e-81da-459f-8bd8-853983ba7a84}");
+  //  [Theory]
+  //  [AutoDbData]
+  //  public void OnOk_ParametersAreSet_ReturnParametersXml(HttpContext context, [Frozen] ISheerService sheerService)
+  //  {
+  //    //Arrange
+  //    var baseActionEditor = new BaseActionEditorMock(sheerService);
+  //    HttpContext.Current = context;
+  //    baseActionEditor.ParametersMock.Add("outcome", "{00889a5e-81da-459f-8bd8-853983ba7a84}");
 
-      //Act
-      baseActionEditor.OnOkMock(this, new EventArgs());
+  //    //Act
+  //    baseActionEditor.OnOkMock(this, new EventArgs());
 
-      //Assert
-      sheerService.Received().SetDialogValue(HttpUtility.HtmlEncode("<outcome>{00889a5e-81da-459f-8bd8-853983ba7a84}</outcome>"));
-    }
+  //    //Assert
+  //    sheerService.Received().SetDialogValue(HttpUtility.HtmlEncode("<outcome>{00889a5e-81da-459f-8bd8-853983ba7a84}</outcome>"));
+  //  }
   }
 
   public class BaseActionEditorMock : BaseActionEditor
