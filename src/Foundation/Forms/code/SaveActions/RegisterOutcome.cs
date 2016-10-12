@@ -4,10 +4,10 @@
   using Sitecore.Analytics.Outcome;
   using Sitecore.Data;
   using Sitecore.Diagnostics;
-  using Sitecore.Foundation.SitecoreExtensions.Extensions;
-  using Sitecore.Foundation.SitecoreExtensions.Services;
-  using Sitecore.WFFM.Abstractions.Actions;
-  using Sitecore.WFFM.Actions.Base;
+  using SitecoreExtensions.Extensions;
+  using SitecoreExtensions.Services;
+  using WFFM.Abstractions.Actions;
+  using WFFM.Actions.Base;
 
   public class RegisterOutcome : WffmSaveAction
   {
