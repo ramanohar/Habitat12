@@ -126,6 +126,14 @@
     <Reference Include="Sitecore.Mvc.Analytics">
       <HintPath>..\..\..\..\packages\Sitecore.Mvc.Analytics.NoReferences.8.1.160519\lib\net45\Sitecore.Mvc.Analytics.dll</HintPath>
     </Reference>
+    <Reference Include="Sitecore.WFFM.Abstractions, Version=8.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\Sitecore.WFFM.Abstractions.NoReferences.8.1.160523\lib\NET45\Sitecore.WFFM.Abstractions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Sitecore.WFFM.Actions, Version=8.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\packages\Sitecore.WFFM.Actions.NoReferences.8.1.160523\lib\NET45\Sitecore.WFFM.Actions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Sitecore.Xdb.Configuration, Version=8.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\packages\Sitecore.Xdb.Configuration.NoReferences.8.1.160519\lib\net45\Sitecore.Xdb.Configuration.dll</HintPath>
