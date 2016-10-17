@@ -53,21 +53,21 @@
       result.Should().Be(defaultValue);
     }
 
-    //[Theory]
-    //[AutoDbData]
-    //public void Get_AutocreateIsTrueEntryDoesntExists_ShouldCreateItem(Db db, [Content]CreateDictionaryEntryServiceTests.DictionaryEntryTemplate entryTemplate, [Content]Item rootItem, IEnumerable<string> pathParts, string defaultValue)
-    //{
-    //  //Arrange
-    //  var relativePath = string.Join("/", pathParts);
-    //  var repository = new DictionaryPhraseRepository(new Dictionary() { Root = rootItem, AutoCreate = true });
+    [Theory]
+    [AutoDbData]
+    public void Get_AutocreateIsTrueEntryDoesntExists_ShouldCreateItem(Db db, [Content]CreateDictionaryEntryServiceTests.DictionaryEntryTemplate entryTemplate, [Content]Item rootItem, IEnumerable<string> pathParts, string defaultValue)
+    {
+      //Arrange
+      var relativePath = string.Join("/", pathParts);
+      var repository = new DictionaryPhraseRepository(new Dictionary() { Root = rootItem, AutoCreate = true });
 
-    //  //Act
-    //  var result = repository.Get(relativePath, defaultValue);
+      //Act
+      var result = repository.Get(relativePath, defaultValue);
 
-    //  //Assert
-    //  result.Should().Be(defaultValue);
-    //  rootItem.Axes.GetItem(relativePath).Should().NotBeNull();
-    //}
+      //Assert
+      result.Should().Be(defaultValue);
+      rootItem.Axes.GetItem(relativePath).Should().NotBeNull();
+    }
 
     [Theory]
     [AutoDbData]
@@ -91,20 +91,20 @@
       result.Should().BeNull();
     }
 
-    //[Theory]
-    //[AutoDbData]
-    //public void Get_AutocreateIsTrueEntryDoesntExists_ShouldreturnItem(Db db, [Content]CreateDictionaryEntryServiceTests.DictionaryEntryTemplate entryTemplate, [Content]Item rootItem, IEnumerable<string> pathParts, string defaultValue)
-    //{
-    //  //Arrange
-    //  var relativePath = string.Join("/", pathParts);
-    //  var repository = new DictionaryPhraseRepository(new Dictionary() { Root = rootItem, AutoCreate = true });
+    [Theory]
+    [AutoDbData]
+    public void Get_AutocreateIsTrueEntryDoesntExists_ShouldreturnItem(Db db, [Content]CreateDictionaryEntryServiceTests.DictionaryEntryTemplate entryTemplate, [Content]Item rootItem, IEnumerable<string> pathParts, string defaultValue)
+    {
+      //Arrange
+      var relativePath = string.Join("/", pathParts);
+      var repository = new DictionaryPhraseRepository(new Dictionary() { Root = rootItem, AutoCreate = true });
 
-    //  //Act
-    //  var result = repository.GetItem(relativePath, defaultValue);
+      //Act
+      var result = repository.GetItem(relativePath, defaultValue);
 
-    //  //Assert
-    //  result[Templates.DictionaryEntry.Fields.Phrase].Should().Be(defaultValue);
-    //}
+      //Assert
+      result[Templates.DictionaryEntry.Fields.Phrase].Should().Be(defaultValue);
+    }
 
     [Theory]
     [AutoDbData]

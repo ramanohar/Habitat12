@@ -14,16 +14,13 @@ module.exports = function (callback, options) {
     if (options.secret)
       return options.secret;
     var unicornConfigFile = options.authenticationConfigFile;
-
-    var data = fs.readFileSync(unicornConfigFile);
-
-    var parser = new xml2js.Parser();
+	var data = fs.readFileSync(unicornConfigFile);
+	var parser = new xml2js.Parser();
     var secret;
     parser.parseString(data, function (err, result) {
       if (err !== null) throw err;
-
-      secret = result.configuration.sitecore[0].unicorn[0].authenticationProvider[0].SharedSecret[0];
-    });
+	  secret = result.configuration.sitecore[0].unicorn[0].authenticationProvider[0].SharedSecret[0];
+	});
     return secret;
   }
 

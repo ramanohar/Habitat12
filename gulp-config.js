@@ -1,11 +1,12 @@
 module.exports = function () {
-  var instanceRoot = "d:\\inetpub\\wwwroot\\sc81u3";
+  var instanceRoot = "D:\\inetpub\\wwwroot\\Habitat";
   var config = {
     websiteRoot: instanceRoot + "\\Website",
     sitecoreLibraries: instanceRoot + "\\Website\\bin",
     licensePath: instanceRoot + "\\Data\\license.xml",
     solutionName: "Habitat",
     buildConfiguration: "Debug",
+	unicornSecret: "kl3KGocnbp3L9ncCZYRPwFwiW7jW2UhE02T3GZU6sL5rTCKZzsRyRYLtGzuh8Li",
     runCleanBuilds: false
   };
   return config;

@@ -1,72 +1,35 @@
 ﻿namespace Sitecore.Foundation.Installer.Tests
 {
-  using System.Collections.Specialized;
-  using FluentAssertions;
-  using log4net.Appender;
-  using log4net.Config;
-  using log4net.spi;
   using NSubstitute;
-  using Sitecore.Foundation.Testing.Attributes;
+  using Sitecore.Foundation.Installer.XmlTransform;
   using Xunit;
 
   public class PostStepTests
   {
     [Theory]
-    [AutoDbData]
-    public void Run_CorrectPostStepAction_CallPostStep(PostStep postStep)
+    [AutoSububstituteData]
+    public void RunShouldCallXdtTransform(IXdtTransformEngine xdt, IFilePathResolver path)
     {
-      //Arrange
-      FakePostStepAction.CallCount = 0;
-      var nameValueCollection = new NameValueCollection();
-      nameValueCollection.Add("Attributes", "name1=Sitecore.Foundation.Installer.Tests.PostStepTests+FakePostStepAction, Sitecore.Foundation.Installer.Tests");
-      
-      //Act
-      postStep.Run(null, nameValueCollection);
 
-      //Assert
-      FakePostStepAction.CallCount.Should().Be(1);
+      var postStep = new PostStep(xdt, path);
+
+      //act
+      postStep.Run(null, null);
+      xdt.Received(1).ApplyConfigTransformation(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<string>());
     }
+
 
     [Theory]
-    [AutoDbData]
-    public void Run_TwoCorrectPostStepAction_CallBothPostSteps(PostStep postStep)
+    [AutoSububstituteData]
+    public void RunShouldNotCallXdtTransformIfTransformFileIsMissing(IXdtTransformEngine xdt, IFilePathResolver path)
     {
-      //Arrange
-      FakePostStepAction.CallCount = 0;
-      var nameValueCollection = new NameValueCollection();
-      nameValueCollection.Add("Attributes", "name1=Sitecore.Foundation.Installer.Tests.PostStepTests+FakePostStepAction, Sitecore.Foundation.Installer.Tests|name2=Sitecore.Foundation.Installer.Tests.PostStepTests+FakePostStepAction, Sitecore.Foundation.Installer.Tests|");
+      path.MapPath(Arg.Any<string>()).Returns((string)null);
+      var postStep = new PostStep(xdt, path);
 
-      //Act
-      postStep.Run(null, nameValueCollection);
-
-      //Assert
-      FakePostStepAction.CallCount.Should().Be(2);
+      //act
+      postStep.Run(null, null);
+      xdt.DidNotReceive().ApplyConfigTransformation(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<string>());
     }
 
-    [Theory]
-    [AutoDbData]
-    public void Run_NotExistingType_LogError(MemoryAppender appender, PostStep postStep)
-    {
-      //Arrange
-      BasicConfigurator.Configure(appender);
-      var nameValueCollection = new NameValueCollection();
-      nameValueCollection.Add("Attributes", "NotExistingType");
-
-      //Act
-      postStep.Run(null, nameValueCollection);
-
-      //Assert
-      appender.Events.Should().Contain(x => x.Level == Level.ERROR && x.RenderedMessage.Contains("NotExistingType"));
-    }
-
-    public class FakePostStepAction:IPostStepAction
-    {
-      public static int CallCount;
-
-      public void Run(NameValueCollection nameValueCollection)
-      {
-        CallCount++;
-      }
-    }
   }
 }
