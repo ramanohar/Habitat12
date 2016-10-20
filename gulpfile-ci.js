@@ -106,6 +106,23 @@ gulp.task("CI-Enumerate-Users", function () {
                 }
             });
         }));
+
+gulp.task("CI-Enumerate-Roles", function () {
+        var roles = [];
+        return gulp.src("./src/**/roles/**/*.role")
+            .pipe(foreach(function (stream, file) {
+                var fileContent = file.contents.toString();
+                var roleName = unicorn.getRolePath(file);
+                roles.push(roleName);
+                return stream;
+            })).pipe(gutil.buffer(function () {
+                xmlpoke("./package.xml", function (xml) {
+                    for (var idx in roles) {
+                        xml.add("project/Sources/accounts/Entries/x-item", roles[idx]);
+                    }
+                });
+            }));
+    });
 		
 gulp.task("CI-Copy-Unicorn-Items", function () {
     var itemPaths = [];
@@ -121,24 +138,7 @@ gulp.task("CI-Copy-Unicorn-Users", function () {
     return gulp.src("./src/**/users/**/*.yml").pipe(gulp.dest(path.resolve('./temp/unicorn')));
 });
 
-gulp.task("CI-Enumerate-Roles", function () {
-    var roles = [];
-    return gulp.src("./src/**/roles/**/*.role")
-        .pipe(foreach(function (stream, file) {
-            var fileContent = file.contents.toString();
-            var roleName = unicorn.getRolePath(file);            
-            roles.push(roleName);
-            return stream;
-        })).pipe(gutil.buffer(function () {
-            xmlpoke("./package.xml", function (xml) {
-                for (var idx in roles) {
-                    xml.add("project/Sources/accounts/Entries/x-item", roles[idx]);
-                }
-            });
-        }));
-});
-
-gulp.task("CI-Copy-Unicorn-roles", function () {
+gulp.task("CI-Copy-Unicorn-Roles", function () {
     var itemPaths = [];
 	console.log(path.resolve("./src/**/roles/**/*.yml"));
     return gulp.src("./src/**/roles/**/*.yml").pipe(gulp.dest(path.resolve('./temp/unicorn')));
