@@ -29,6 +29,19 @@ gulp.task("default", function (callback) {
 	callback);
 });
 
+gulp.task("Publish-To-CIInstance", function (callback) {
+  config.runCleanBuilds = true;
+  return runSequence(
+    "Publish-Foundation-Projects",
+    "Publish-Feature-Projects",
+    "Publish-Project-Projects",
+    "04-Apply-Xml-Transform",
+    "05-Sync-Unicorn",
+    "06-Deploy-Transforms",
+	callback);
+});
+
+
 /*****************************
   Initial setup
 *****************************/
