@@ -100,6 +100,7 @@ gulp.task("CI-Enumerate-Users", function () {
                 }
             });
         }));
+});
 
 gulp.task("CI-Enumerate-Roles", function () {
         var roles = [];
@@ -122,8 +123,6 @@ gulp.task("CI-Copy-Unicorn-Items", function () {
     var itemPaths = [];
 	console.log(path.resolve("./src/**/serialization/**/*.yml"));
     return gulp.src("./src/**/serialization/**/*.yml").pipe(gulp.dest(path.resolve('./temp/unicorn')));
-});
-
 });
 
 gulp.task("CI-Enumerate-Roles", function () {
@@ -151,14 +150,14 @@ gulp.task("CI-Copy-Unicorn-Items", function () {
 
 gulp.task("CI-Copy-Unicorn-Users", function () {
     var itemPaths = [];
-	console.log(path.resolve("./src/**/users/**/*.yml"));
-    return gulp.src("./src/**/users/**/*.yml").pipe(gulp.dest(path.resolve('./temp/unicorn')));
+	console.log(path.resolve("./src/**/users/**/*.user"));
+    return gulp.src("./src/**/users/**/*.user").pipe(gulp.dest(path.resolve('./temp/unicorn')));
 });
 
 gulp.task("CI-Copy-Unicorn-Roles", function () {
     var itemPaths = [];
-	console.log(path.resolve("./src/**/roles/**/*.yml"));
-    return gulp.src("./src/**/roles/**/*.yml").pipe(gulp.dest(path.resolve('./temp/unicorn')));
+	console.log(path.resolve("./src/**/roles/**/*.role"));
+    return gulp.src("./src/**/roles/**/*.role").pipe(gulp.dest(path.resolve('./temp/unicorn')));
 });
 
 gulp.task("CI-Clean", function (callback) {
@@ -195,23 +194,6 @@ gulp.task("CI-Do-magic", function (callback) {
 });
 
 // unused implementations
-gulp.task('nuget-download', function(done) {
-    if(fs.existsSync('nuget.exe')) {
-        return done();
-    }
-    request.get('http://nuget.org/nuget.exe')
-        .pipe(fs.createWriteStream('nuget.exe'))
-        .on('close', done);
-});
-
-gulp.task('nuget-pack', function() {
-  var nugetPath = './nuget.exe';
-
-  return gulp.src('habitatsite.nuspec')
-    .pipe(nuget.pack({ nuget: nugetPath, version: "1.0.0" }))
-    .pipe(gulp.dest('habitatsite.1.0.0.nupkg'));
-});
-
 gulp.task("CI-Enumerate-Roles-pkg", function () {
     var roles = [];
     return gulp.src("./src/**/roles/**/*.role")
