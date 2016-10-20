@@ -1,28 +1,23 @@
 <?xml version="1.0"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
 	<metadata>
-		<id>SitecoreSite</id>
-		<version>1.0</version>
-		<title>Sitecore Website</title>
-		<authors>Jagannathan S</authors>
-		<description>Sample Nuget Package creation for Habitat Site</description>
+		<id>pck-ID</id>
+		<version>pck-version</version>
+		<title>pck-title</title>
+		<authors>pck-authors</authors>
+		<description>pck-description</description>
 	</metadata>
 	<files>
 		<file src="App_Config\**\*.config" target="App_Config" />
-		<file src="Assets\**\*.*" target="Assets" />
 		<file src="bin\*.dll" target="bin" />
 		<file src="Views\**\*" target="Views"/>
 		<file src="fonts\**\*" target="fonts"/>
 		<file src="Styles\**\*" target="Styles"/>
-		<file src="default.css" target="" />
-		<file src="default.htm.sitedown" target="" />
-		<file src="default.js" target="" />
-		<file src="Global.asax" target="" />
-		<file src="Web.*.config" target="" />
-		<file src="Web.config" target="" />
-		<file src="webedit.css" target="" />
-		<file src="emails\**\*.*" target="emails" />
-		<file src="*.ps1" target="" />
+		<file src="Scripts\**\*" target="Scripts"/>
+		<file src="sitecore\**\*" target="Sitecore"/>
+		<file src="bower.json" target="" />
+		<file src="favicon.ico" target="" />
+		<file src="Web.config.transform" target="" />
 		<file src="Unicorn\**\*.*" target="Unicorn" />
   </files>
 </package>
