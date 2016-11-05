@@ -9,7 +9,7 @@
 	</metadata>
 	<files>
 		<file src="App_Config\**\*.config" target="App_Config" />
-		<file src="bin\*.dll" target="bin" />
+		<file src="bin\**\*" target="bin" />
 		<file src="Views\**\*" target="Views"/>
 		<file src="fonts\**\*" target="fonts"/>
 		<file src="Styles\**\*" target="Styles"/>
