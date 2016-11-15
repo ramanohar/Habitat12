@@ -165,7 +165,6 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="favicon.ico" />
-    <Content Include="App_Config\ConnectionStrings.config" />
     <None Include="App_Config\Security\domains.config.transform" />
     <Content Include="packages.config" />
     <None Include="Properties\PublishProfiles\Local.pubxml" />

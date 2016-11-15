@@ -11,6 +11,7 @@ var config = require("./gulpfile.js").config;
 var unicorn = require("./scripts/unicorn.js");
 var websiteRootBackup = config.websiteRoot;
 var zip = require("gulp-zip");
+var gulp = require('gulp');
 var replace = require('gulp-replace');
 var args = require('yargs').argv;
 var fileName = process.argv[4];
@@ -103,29 +104,6 @@ gulp.task("CI-Enumerate-Users", function () {
 });
 
 gulp.task("CI-Enumerate-Roles", function () {
-        var roles = [];
-        return gulp.src("./src/**/roles/**/*.role")
-            .pipe(foreach(function (stream, file) {
-                var fileContent = file.contents.toString();
-                var roleName = unicorn.getRolePath(file);
-                roles.push(roleName);
-                return stream;
-            })).pipe(gutil.buffer(function () {
-                xmlpoke("./package.xml", function (xml) {
-                    for (var idx in roles) {
-                        xml.add("project/Sources/accounts/Entries/x-item", roles[idx]);
-                    }
-                });
-            }));
-    });
-		
-gulp.task("CI-Copy-Unicorn-Items", function () {
-    var itemPaths = [];
-	console.log(path.resolve("./src/**/serialization/**/*.yml"));
-    return gulp.src("./src/**/serialization/**/*.yml").pipe(gulp.dest(path.resolve('./temp/unicorn')));
-});
-
-gulp.task("CI-Enumerate-Roles", function () {
     var roles = [];
     return gulp.src("./src/**/roles/**/*.role")
         .pipe(foreach(function (stream, file) {
@@ -144,20 +122,20 @@ gulp.task("CI-Enumerate-Roles", function () {
 
 gulp.task("CI-Copy-Unicorn-Items", function () {
     var itemPaths = [];
-    console.log(path.resolve("./src/**/serialization/**/*.yml"));
+	console.log(path.resolve("./src/**/serialization/**/*.yml"));
     return gulp.src("./src/**/serialization/**/*.yml").pipe(gulp.dest(path.resolve('./temp/unicorn')));
 });
 
 gulp.task("CI-Copy-Unicorn-Users", function () {
     var itemPaths = [];
-	console.log(path.resolve("./src/**/users/**/*.user"));
-    return gulp.src("./src/**/users/**/*.user").pipe(gulp.dest(path.resolve('./temp/unicorn')));
+	console.log(path.resolve("./src/**/users/**/*.yml"));
+    return gulp.src("./src/**/users/**/*.yml").pipe(gulp.dest(path.resolve('./temp/unicorn')));
 });
 
 gulp.task("CI-Copy-Unicorn-Roles", function () {
     var itemPaths = [];
-	console.log(path.resolve("./src/**/roles/**/*.role"));
-    return gulp.src("./src/**/roles/**/*.role").pipe(gulp.dest(path.resolve('./temp/unicorn')));
+	console.log(path.resolve("./src/**/roles/**/*.*"));
+    return gulp.src("./src/**/roles/**/*.*").pipe(gulp.dest(path.resolve('./temp/unicorn')));
 });
 
 gulp.task("CI-Clean", function (callback) {
@@ -166,7 +144,7 @@ gulp.task("CI-Clean", function (callback) {
 });
    
 gulp.task("Nuspec-File-Replace", function() {
-	//console.log(ID);
+	console.log(ID);
 	//console.log(fileName);
     return gulp.src("./"+ fileName)
 		.pipe(replace("pck-id", ID))
@@ -194,6 +172,24 @@ gulp.task("CI-Do-magic", function (callback) {
 });
 
 // unused implementations
+/*
+gulp.task('nuget-download', function(done) {
+    if(fs.existsSync('nuget.exe')) {
+        return done();
+    }
+    request.get('http://nuget.org/nuget.exe')
+        .pipe(fs.createWriteStream('nuget.exe'))
+        .on('close', done);
+});
+
+gulp.task('nuget-pack', function() {
+  var nugetPath = './nuget.exe';
+
+  return gulp.src('habitatsite.nuspec')
+    .pipe(nuget.pack({ nuget: nugetPath, version: "1.0.0" }))
+    .pipe(gulp.dest('habitatsite.1.0.0.nupkg'));
+});
+*/
 gulp.task("CI-Enumerate-Roles-pkg", function () {
     var roles = [];
     return gulp.src("./src/**/roles/**/*.role")
