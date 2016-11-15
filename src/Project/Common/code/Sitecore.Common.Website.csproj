@@ -166,7 +166,7 @@
     <Content Include="Views\Common\Sublayouts\NavbarActivity.cshtml" />
     <None Include="Views\Web.config" />
     <None Include="web.config" />
-    <None Include="web.config.transform" />
+    <Content Include="web.config.transform" />
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>
