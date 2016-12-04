@@ -4,12 +4,15 @@ using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium;
 using System.Drawing.Imaging;
 using OpenQA.Selenium.Firefox;
+using System.Threading;
 
 namespace HabitatUITests.Controllers
 {
     [TestClass]
     public class HomePageUITests
     {
+
+        //System.setProperty("webdriver.firefox.marionette","G:\\Selenium\\Firefox driver\\geckodriver.exe");
         private IWebDriver webDriver;
 
         [TestInitialize]
@@ -35,7 +38,6 @@ namespace HabitatUITests.Controllers
         public void UC001_LoadHomePage()
         {
             webDriver.Navigate().GoToUrl(ConfigurationHelper.SiteUrl);
-         //   Screenshot screenshot = ((ITakesScreenshot)webDriver).GetScreenshot();
             bool result = true;
             try
             {
@@ -47,7 +49,7 @@ namespace HabitatUITests.Controllers
             }
 
             Assert.AreEqual(result, true);
-           // CloseBrowser();
+           CloseBrowser();
         }
 
 
@@ -66,14 +68,13 @@ namespace HabitatUITests.Controllers
             }
 
             Assert.AreEqual(result, true);
-           // CloseBrowser();
+            CloseBrowser();
         }
 
         [TestMethod]
         public void UC003_LoadForgotPasswordPage()
         {
             webDriver.Navigate().GoToUrl(ConfigurationHelper.ForgotPasswordUrl);
-          //  Screenshot screenshot = ((ITakesScreenshot)webDriver).GetScreenshot();
             bool result = true;
             try
             {
@@ -83,9 +84,8 @@ namespace HabitatUITests.Controllers
             {
                 result = false;
             }
-
             Assert.AreEqual(result, true);
-            
+            CloseBrowser();
         }
 
 
@@ -97,6 +97,7 @@ namespace HabitatUITests.Controllers
         private void CloseBrowser()
         {
             webDriver.Quit();
+            Thread.Sleep(1000);
         }
     }
 }
